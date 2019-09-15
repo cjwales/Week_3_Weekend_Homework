@@ -1,4 +1,6 @@
+require('pry')
 require_relative ('../db/sql_runner.rb')
+require_relative ('./film.rb')
 
 class Customer
 
@@ -37,6 +39,14 @@ class Customer
     film_data = SqlRunner.run(sql, values)
     return Film.map_items(film_data)
   end
+
+#   def buy_ticket(customer, film)
+#     customer.funds -= film.price
+#   end
+#
+# @movie1 = Film.new('Blue Ruin', 5)
+# @customer1 = Customer.new('Neil', 10)
+#   buy_ticket(customer1, movie1)
 
   def self.map_items(customer)
     result = customer.map{|customer| Customer.new(customer)}
