@@ -32,7 +32,6 @@ class Customer
     SqlRunner.run(sql, values)
   end
 
-
   def films()
     sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1"
     values = [@id]
@@ -40,13 +39,13 @@ class Customer
     return Film.map_items(film_data)
   end
 
-#   def buy_ticket(customer, film)
-#     customer.funds -= film.price
-#   end
-#
-# @movie1 = Film.new('Blue Ruin', 5)
-# @customer1 = Customer.new('Neil', 10)
-#   buy_ticket(customer1, movie1)
+  def buy_ticket()
+    sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1"
+    values = [@id]
+    ticket_prices = SqlRunner.run(sql, values)
+    result = @funds -= ticket_prices[0]['price'].to_i()
+    return result
+  end
 
   def self.map_items(customer)
     result = customer.map{|customer| Customer.new(customer)}
