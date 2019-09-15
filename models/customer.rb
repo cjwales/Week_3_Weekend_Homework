@@ -40,10 +40,14 @@ class Customer
   end
 
   def buy_ticket()
+    total = 0
     sql = "SELECT films.price FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE tickets.customer_id = $1"
     values = [@id]
     ticket_prices = SqlRunner.run(sql, values)
-    result = @funds -= ticket_prices[0]['price'].to_i()
+    for ticket_price in ticket_prices
+      total += ticket_price['price'].to_i()
+    end
+    result = @funds -= total
     return result
   end
 
