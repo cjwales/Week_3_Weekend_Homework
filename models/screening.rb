@@ -30,6 +30,11 @@ class Screening
     SqlRunner.run(sql, values)
   end
 
+  def self.map_items(screening)
+    result = screening.map{|screening| Screening.new(screening)}
+    return result
+  end
+
 
 
 end
