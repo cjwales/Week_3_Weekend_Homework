@@ -1,3 +1,4 @@
+require_relative('models/screening.rb')
 require_relative('models/ticket.rb')
 require_relative('models/film.rb')
 require_relative('models/customer.rb')
@@ -16,6 +17,19 @@ film2 = Film.new({
   })
 
 film2.save()
+
+film2.title = 'Hold the Dark'
+film2.update()
+
+film3 = Film.new({
+  'title' => 'Blade Runner 2049',
+  'price' => 15
+  })
+
+film3.save()
+
+film3.delete()
+
 
 customer1 = Customer.new({
   'name' => 'Neil',
@@ -45,7 +59,19 @@ ticket2 = Ticket.new({
 
 ticket2.save()
 
+screening1 = Screening.new({
+  'film_id' => film1.id,
+  'show_time' => '20:00'
+  })
 
+screening1.save()
+
+screening2 = Screening.new({
+  'film_id' => film2.id,
+  'show_time' => '22:30'
+  })
+
+screening2.save()
 
 binding.pry
 nil
